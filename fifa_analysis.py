@@ -16,8 +16,7 @@ print(df.team_position.value_counts())
 print(df.shape)
 print(df.columns.values.tolist())
 
-df = df[['age', 'height_cm', 'weight_kg', 'overall', 'wage_eur', 'preferred_foot',
-         'international_reputation', 'weak_foot', 'skill_moves', 'team_position',
+df = df[['overall', 'wage_eur', 'team_position',
          'pace', 'shooting', 'passing', 'dribbling', 'defending', 'physic',
          'attacking_crossing', 'attacking_finishing', 'attacking_heading_accuracy',
          'attacking_short_passing', 'attacking_volleys', 'skill_dribbling', 'skill_curve', 'skill_fk_accuracy',
@@ -29,14 +28,14 @@ df = df[['age', 'height_cm', 'weight_kg', 'overall', 'wage_eur', 'preferred_foot
 
 
 # Make preferred foot binary
-def right_footed(df):
-    if (df['preferred_foot'] == 'Right'):
-        return 1
-    else:
-        return 0
+# def right_footed(df):
+#     if (df['preferred_foot'] == 'Right'):
+#         return 1
+#     else:
+#         return 0
 
-
-df['right_foot'] = df.apply(right_footed, axis=1)
+#
+# df['right_foot'] = df.apply(right_footed, axis=1)
 
 
 # Reduce number of positions
@@ -63,7 +62,7 @@ def simple_position(df):
 df['position'] = df.apply(simple_position, axis=1)
 
 # Drop both original fields and remove NAs
-df = df.drop(['preferred_foot', 'team_position'], axis=1)
+df = df.drop(['team_position'], axis=1)
 
 print(df.isnull().sum())
 df = df.dropna()
@@ -72,7 +71,7 @@ print(df.shape)
 
 # linear regression
 X = df.drop(['overall', 'wage_eur', 'position'], axis=1)
-y = df['overall']
+y = df['wage_eur']
 
 print(f'Dataset X shape: {X.shape}')
 print(f'Dataset y shape: {y.shape}')
@@ -104,7 +103,7 @@ sns.set(palette="inferno")
 
 # Plotting differenct between real and predicted values
 sns.scatterplot(y_test, predicted_values)
-plt.plot([0, 50], [0, 50], '--')
+plt.plot()
 plt.xlabel('Real Value')
 plt.ylabel('Predicted Value')
 plt.show()
@@ -113,13 +112,13 @@ plt.show()
 # Plotting the residuals: the error between the real and predicted values
 residuals = y_test - predicted_values
 sns.scatterplot(y_test, residuals)
-plt.plot([50, 0], [0, 0], '--')
+plt.plot()
 plt.xlabel('Real Value')
 plt.ylabel('Residual (difference)')
 plt.show()
 
 sns.distplot(residuals, bins=20, kde=False)
-plt.plot([0, 0], [50, 0], '--')
+plt.plot()
 plt.title('Residual (difference) Distribution')
 plt.show()
 
@@ -129,9 +128,6 @@ print(f"Printing MSE error: {metrics.mean_squared_error(y_test, predicted_values
 print(f"Printing RMSE error: {np.sqrt(metrics.mean_squared_error(y_test, predicted_values))}")
 print(f"R2 Score: {metrics.r2_score(y_test, predicted_values)}")
 
-sns.distplot(df['wage_eur'], bins=10, kde=False)
-plt.title('Residual (difference) Distribution')
-plt.show()
 
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import GradientBoostingRegressor
