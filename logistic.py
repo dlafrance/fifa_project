@@ -81,7 +81,7 @@ plt.clf()
 
 # Distribution of skill rating by position
 f, axes = plt.subplots(2, 2, figsize=(8, 8), sharex=True)
-f.suptitle('Distribution of dribbling skill by position', fontsize=16)
+f.suptitle('Distribution of dribbling skill by position')
 sns.set(style="dark", palette="GnBu_d", color_codes=True)
 sns.distplot(df['skill_dribbling'][df['position'] == 'FWD'], ax=axes[0, 0])
 axes[0][0].set(xlabel='FWD', ylabel='Frequency share')
