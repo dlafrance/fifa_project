@@ -22,7 +22,7 @@ Can a football player's set of skills predict their position on the field?
 
 ### Abstract
 
-The EA Sports FIFA video game is the definitive game for football fans across the world, with the series selling over 260 million copies as of 2018. Each player in the game has an overall rating (0-100) which is a function of 34 different skills such as passing, shooting and agility. With this data available, we are able to gather insight into the game and the player's themselves to see which factors make them good.
+The EA Sports [FIFA video game](https://www.ea.com/games/fifa/fifa-20) is the definitive game for football fans across the world, with the series selling over 260 million copies as of 2018. Each player in the game has an overall rating (0-100) which is a function of 34 different skills such as passing, shooting and agility. With this data available, we are able to gather insight into the game and the player's themselves to see which factors make them good.
 
 Obviously, the required skill set for each position is likely different. The challenge is to find out whether the skills data can correctly predict the player's position on the field, and which skills are most important for each position.
 
@@ -30,8 +30,6 @@ This classification problem can be approached with the supervised learning model
 
 - action (how will we try to solve this problem/answer this question)
 - resolution (what did we end up producing)
-
-![cover](./fifa-20-cover-standard-edition.jpg)
 
 ### Introduction
 
@@ -50,9 +48,11 @@ In summary, logistic regression seeks to model the probabilty of the occurence o
 
 ### Results
 
-When looking at overall FIFA Rating of the players in the dataset, the distributions are very similar with only marginal differences.
+When looking at overall FIFA Rating of the players in the dataset, the distributions by position are very similar with only marginal differences.
 
 ![boxplot](./plots/box_position_rating.png)
+
+
 
 Brief (2 paragraph) description about your results. Include:
 
