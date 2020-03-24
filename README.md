@@ -84,6 +84,8 @@ weighted avg       0.91      0.91      0.91      3656
 ```
 
 
+![confusion_matrix](./plots/confusion_matrix.png)
+
 ### Discussion
 Brief (no more than 1-2 paragraph) description about what you did. Include:
 
