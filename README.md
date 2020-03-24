@@ -28,7 +28,7 @@ Obviously, the required skill set for each position is likely different. The cha
 
 This classification problem can be approached with the supervised learning model of logistic regression.
 
-- action (how will we try to solve this problem/answer this question)
+
 - resolution (what did we end up producing)
 
 ### Introduction
@@ -38,6 +38,8 @@ The dataset was pulled from [Kaggle](https://www.kaggle.com/stefanoleone992/fifa
 - Player positions, with the role in the club and in the national team
 - Player attributes with statistics as Attacking, Skills, Defense, Mentality, GK Skills, etc.
 - Player personal data like Nationality, Club, DateOfBirth, Wage, Salary, etc.
+
+The shape of the dataset is `(18278, 104)`, but was reduced to 34 features for the model.
 
 ### Methods
 
@@ -62,6 +64,24 @@ Therefore the dataset can likely predict that player's position based on their r
 - Position MID: movement_balance, movement_agility, movement_acceleration
 - Position DEF: power_strength, power_jumping, power_stamina
 - Position GK: goalkeeping_reflexes, goalkeeping_diving, goalkeeping_positioning
+
+#### Logistic regression model
+
+The logistic regression model was able to correctly predict the true position of the players at a high rate, with an accuracy score of `0.91/1`.
+
+```python
+Classification Report
+              precision    recall  f1-score   support
+
+         DEF       0.91      0.91      0.91      1221
+         FWD       0.87      0.85      0.86       496
+          GK       1.00      1.00      1.00       408
+         MID       0.88      0.89      0.89      1531
+
+    accuracy                           0.91      3656
+   macro avg       0.92      0.91      0.92      3656
+weighted avg       0.91      0.91      0.91      3656
+```
 
 
 ### Discussion
