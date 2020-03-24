@@ -11,7 +11,6 @@ os.makedirs('plots', exist_ok=True)
 df = pd.read_csv('fifa_20.csv', header=0)
 
 # Drop positions that will not be comparable for analysis
-print(df.team_position.value_counts())
 print(df.shape)
 print(df.columns.values.tolist())
 
@@ -27,17 +26,13 @@ df = df[['overall', 'age', 'height_cm', 'weight_kg', 'player_positions', 'team_p
 
 # Filling player's position for subs and reserves, as well as NAs from their positions selection
 df['player_positions'] = df['player_positions'].str.split(',').str[0]
-print(df.player_positions.value_counts())
 
 df['team_position'] = np.where((df['team_position'] == 'SUB'), df['player_positions'],
                                df['team_position'])
 df['team_position'] = np.where((df['team_position'] == 'RES'), df['player_positions'],
                                df['team_position'])
-print(df['team_position'].head())
-print(df.team_position.value_counts())
+
 df['team_position'].fillna(df['player_positions'], inplace=True)
-print(df.isnull().sum())
-print(df.team_position.value_counts())
 
 
 # Reduce number of positions
@@ -68,7 +63,6 @@ df = df.drop(['player_positions', 'team_position'], axis=1)
 print(df.position.value_counts())
 print(df.shape)
 
-
 # Box plot
 sns.set(style="dark", palette="GnBu_d", color_codes=True)
 position_order = ['FWD', 'MID', 'DEF', 'GK']
@@ -94,6 +88,7 @@ axes[1][1].set(xlabel='GK')
 plt.savefig('plots/hist_rating_position.png')
 plt.clf()
 
+# Find best skills by position
 player_features = ['attacking_crossing',
                    'attacking_finishing', 'attacking_heading_accuracy', 'attacking_short_passing', 'attacking_volleys',
                    'skill_dribbling', 'skill_curve', 'skill_fk_accuracy',
@@ -108,50 +103,7 @@ player_features = ['attacking_crossing',
 for i, val in df.groupby(df['position'])[player_features].mean().iterrows():
     print('Position {}: {}, {}, {}'.format(i, *tuple(val.nlargest(4).index)))
 
-# from math import pi
-#
-# idx = 1
-# plt.figure(figsize=(15, 45))
-# for position_name, features in df.groupby(df['position'])[player_features].mean().iterrows():
-#     top_features = dict(features.nlargest(5))
-#
-#     # number of variable
-#     categories = top_features.keys()
-#     N = len(categories)
-#
-#     # We are going to plot the first line of the data frame.
-#     # But we need to repeat the first value to close the circular graph:
-#     values = list(top_features.values())
-#     values += values[:1]
-#
-#     # What will be the angle of each axis in the plot? (we divide the plot / number of variable)
-#     angles = [n / float(N) * 2 * pi for n in range(N)]
-#     angles += angles[:1]
-#
-# # Initialise the spider plot
-# ax = plt.subplot(9, 3, idx, polar=True)
-#
-# # Draw one axe per variable + add labels labels yet
-# plt.xticks(angles[:-1], categories, color='grey', size=8)
-#
-# # Draw ylabels
-# ax.set_rlabel_position(0)
-# plt.yticks([25, 50, 75], ["25", "50", "75"], color="grey", size=7)
-# plt.ylim(0, 100)
-# plt.subplots_adjust(hspace=0.5)
-#
-# # Plot data
-# ax.plot(angles, values, linewidth=1, linestyle='solid')
-#
-# # Fill area
-# ax.fill(angles, values, 'b', alpha=0.1)
-# plt.title(position_name, size=11, y=1.1)
-# idx += 1
-# plt.savefig('plots/best_skills.png')
-# plt.clf()
-
-
-# # Logistic regression
+# Logistic regression
 X = df.drop(['position', 'overall'], axis=1)
 y = df['position']
 
@@ -176,10 +128,6 @@ lr.fit(X_train, y_train)
 # Predicting the results for our test dataset
 predicted_values = lr.predict(X_test)
 
-# Printing the residuals: difference between real and predicted
-for (real, predicted) in list(zip(y_test, predicted_values)):
-    print(f'Value: {real}, pred: {predicted} {"is different" if real != predicted else ""}')
-
 # Printing accuracy score(mean accuracy) from 0 - 1
 print(f'Accuracy score is {lr.score(X_test, y_test):.2f}/1 \n')
 
@@ -189,9 +137,21 @@ from sklearn.metrics import classification_report, confusion_matrix, f1_score
 print('Classification Report')
 print(classification_report(y_test, predicted_values))
 
-# Printing the classification confusion matrix (diagonal is true)
+# Printing the classification confusion matrix
 print('Confusion Matrix')
+cm = confusion_matrix(y_test, predicted_values)
 print(confusion_matrix(y_test, predicted_values))
+
+f, ax = plt.subplots(1, 1, figsize=(8, 6))
+sns.heatmap(cm, annot=True, fmt='g', cmap=plt.get_cmap('Blues'), ax=ax)
+
+ax.set_xlabel('Predicted position')
+ax.set_ylabel('True position')
+ax.set_title('Confusion Matrix')
+ax.xaxis.set_ticklabels(['DEF', 'FWD', 'GK', 'MID'])
+ax.yaxis.set_ticklabels(['DEF', 'FWD', 'GK', 'MID'])
+plt.savefig('plots/confusion_matrix.png')
+plt.clf()
 
 print('Overall f1-score')
 print(f1_score(y_test, predicted_values, average="macro"))
