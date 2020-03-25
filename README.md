@@ -2,7 +2,7 @@
 
 | Name | Date |
 |:-------|:---------------|
-|Donald Lafrance| March 23, 2020|
+|Donald Lafrance| March 24, 2020|
 
 -----
 
@@ -11,8 +11,6 @@ Your repository should include the following:
 
 - Python script for your analysis
 - Results figure/saved file
-- Dockerfile for your experiment
-- runtime-instructions in a file named RUNME.md
 
 -----
 
@@ -26,10 +24,7 @@ The EA Sports [FIFA video game](https://www.ea.com/games/fifa/fifa-20) is the de
 
 Obviously, the required skill set for each position is likely different. The challenge is to find out whether the skills data can correctly predict the player's position on the field, and which skills are most important for each position.
 
-This classification problem can be approached with the supervised learning model of logistic regression.
-
-
-- resolution (what did we end up producing)
+This classification problem can be approached with the supervised learning model of logistic regression. The results yield an accuracy of `0.91`, proving that the level of different skills can predict the player's position at a performant rate.
 
 ### Introduction
 
@@ -67,7 +62,7 @@ Therefore the dataset can likely predict that player's position based on their r
 
 #### Logistic regression model
 
-The logistic regression model was able to correctly predict the true position of the players at a high rate, with an accuracy score of `0.91/1`.
+The logistic regression model was able to correctly predict the true position of the players at a high rate, with an accuracy score of `0.91`. The classification report below shows high levels of precision, recall and, in turn, the f1-socre by position. 
 
 ```python
 Classification Report
@@ -83,16 +78,18 @@ Classification Report
 weighted avg       0.91      0.91      0.91      3656
 ```
 
+From the confusion matrix, we see that all goalkeepers were predicted to be goalkeepers, which makes sense as their skill set is very specific to their prosition. On the other hand, the skills from defenders and forwards can be associated to the midfielder position. This position holds the largest range in skills as some midfielders focus more on defending while others on attacking.
 
 ![confusion_matrix](./plots/confusion_matrix.png)
 
 ### Discussion
-Brief (no more than 1-2 paragraph) description about what you did. Include:
+The logistic regression method was performant in predicting the player's position from the skill features. Certainly, the model wasn't perfect, but overall a player's skill set will predict their position on the field.
 
-- interpretation of whether your method "solved" the problem
-- suggested next step that could make it better.
+It owuld be interesting to see if the player's who were not well classified could actually be candidates for other position. Maybe certain midfielders would actually be better defenders, while some might be better suited as forwards. I can say with certainty that none of them would be proper professional goalkeepers!
+
 
 ### References
-All of the links
-
+- Data set: https://www.kaggle.com/stefanoleone992/fifa-20-complete-player-dataset
+- Logistic regression package: https://scikitlearn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
+- 
 -------
