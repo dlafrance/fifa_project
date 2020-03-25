@@ -9,9 +9,13 @@ os.makedirs('plots', exist_ok=True)
 
 # Load file
 df = pd.read_csv('fifa_20.csv', header=0)
+print(df.shape)
+print(df.info())
+print(df.describe())
+print(df.isnull().sum())
+
 
 # Drop positions that will not be comparable for analysis
-print(df.shape)
 print(df.columns.values.tolist())
 
 df = df[['overall', 'age', 'height_cm', 'weight_kg', 'player_positions', 'team_position', 'attacking_crossing',
@@ -25,6 +29,7 @@ df = df[['overall', 'age', 'height_cm', 'weight_kg', 'player_positions', 'team_p
          'goalkeeping_handling', 'goalkeeping_kicking', 'goalkeeping_positioning', 'goalkeeping_reflexes']]
 
 # Filling player's position for subs and reserves, as well as NAs from their positions selection
+print(df.isnull().sum())
 df['player_positions'] = df['player_positions'].str.split(',').str[0]
 
 df['team_position'] = np.where((df['team_position'] == 'SUB'), df['player_positions'],
@@ -60,6 +65,7 @@ df['position'] = df.apply(simple_position, axis=1)
 
 # # Drop both original fields
 df = df.drop(['player_positions', 'team_position'], axis=1)
+print(df.isnull().sum())
 print(df.position.value_counts())
 print(df.shape)
 
