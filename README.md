@@ -7,10 +7,9 @@
 -----
 
 ### Resources
-Your repository should include the following:
 
-- Python script for your analysis
-- Results figure/saved file
+- Python script for your analysis: `fifa_log.py`
+- Results figure/saved file: `plots/`
 
 -----
 
@@ -83,13 +82,14 @@ From the confusion matrix, we see that all goalkeepers were predicted to be goal
 ![confusion_matrix](./plots/confusion_matrix.png)
 
 ### Discussion
+
 The logistic regression method was performant in predicting the player's position from the skill features. Certainly, the model wasn't perfect, but overall a player's skill set will predict their position on the field.
 
-It owuld be interesting to see if the player's who were not well classified could actually be candidates for other position. Maybe certain midfielders would actually be better defenders, while some might be better suited as forwards. I can say with certainty that none of them would be proper professional goalkeepers!
-
+It would be interesting to see if the player's who were not well classified could actually be solid candidates for other positions. Maybe certain midfielders would actually be better defenders, while some might be better suited as forwards. I can say with certainty that none of them would be proper professional goalkeepers!
 
 ### References
+
 - Data set: https://www.kaggle.com/stefanoleone992/fifa-20-complete-player-dataset
 - Logistic regression package: https://scikitlearn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
-- 
+
 -------
