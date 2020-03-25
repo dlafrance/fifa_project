@@ -7,7 +7,7 @@ import seaborn as sns
 
 os.makedirs('plots', exist_ok=True)
 
-# Load file
+# Load file and explore
 df = pd.read_csv('fifa_20.csv', header=0)
 print(df.shape)
 print(df.info())
