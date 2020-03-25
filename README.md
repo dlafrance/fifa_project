@@ -83,7 +83,7 @@ From the confusion matrix, we see that all goalkeepers were predicted to be goal
 
 ### Discussion
 
-The logistic regression method was performant in predicting the player's position from the skill features. Certainly, the model wasn't perfect, but overall a player's skill set will predict their position on the field.
+The logistic regression method was performant in predicting the player's position from the skill features. Certainly, the model wasn't perfect, but overall a player's skill set will predict their position on the field with high accuracy.
 
 It would be interesting to see if the player's who were not well classified could actually be solid candidates for other positions. Maybe certain midfielders would actually be better defenders, while some might be better suited as forwards. I can say with certainty that none of them would be proper professional goalkeepers!
 
