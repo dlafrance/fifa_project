@@ -61,7 +61,7 @@ Therefore the dataset can likely predict that player's position based on their r
 
 #### Logistic regression model
 
-The logistic regression model was able to correctly predict the true position of the players at a high rate, with an accuracy score of `0.91`. The classification report below shows high levels of precision, recall and, in turn, the f1-socre by position. 
+The logistic regression model was able to correctly predict the true position of the players at a high rate, with an accuracy score of `0.91`. The classification report below shows high levels of precision, recall and, in turn, the f1-score by position. 
 
 ```python
 Classification Report
